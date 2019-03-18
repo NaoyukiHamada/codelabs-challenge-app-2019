@@ -18,3 +18,4 @@
 * [Part2: リファクタ編 / Part2: Refactoring](https://drive.google.com/drive/folders/1o5Tvw2Rgu8z93nERMfva2L-7ScSb_HJ-?usp=sharing)
 
 ## Test
+thu
