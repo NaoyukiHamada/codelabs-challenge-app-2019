@@ -24,6 +24,7 @@ import retrofit2.Response
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 
+
 class StoryActivity : BaseActivity() {
 
     companion object {
@@ -68,7 +69,7 @@ class StoryActivity : BaseActivity() {
         recyclerView.isNestedScrollingEnabled = false
         val itemDecoration = DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
         recyclerView.addItemDecoration(itemDecoration)
-        commentAdapter = CommentAdapter(emptyList())
+        commentAdapter = CommentAdapter(emptyList(), emptyList())
         recyclerView.adapter = commentAdapter
 
         if (item == null) return
@@ -80,7 +81,7 @@ class StoryActivity : BaseActivity() {
         }
 
         if (savedComments != null) {
-            commentAdapter.comments = savedComments
+            commentAdapter.comments = savedComments as List<Item>
             commentAdapter.notifyDataSetChanged()
             webView.loadUrl(item!!.url)
             return
@@ -155,7 +156,7 @@ class StoryActivity : BaseActivity() {
 
             override fun onPostExecute(items: List<Item?>) {
                 progressLatch.countDown()
-                commentAdapter.comments = items
+                commentAdapter.comments = items as List<Item>
                 commentAdapter.notifyDataSetChanged()
             }
         }
