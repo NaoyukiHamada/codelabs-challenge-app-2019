@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.support.v7.app.ActionBar
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
@@ -37,7 +38,6 @@ class StoryActivity : BaseActivity() {
 
     private lateinit var commentAdapter: CommentAdapter
     private lateinit var hackerNewsApi: HackerNewsApi
-
     private var getCommentsTask: AsyncTask<Long, Unit, List<Item?>>? = null
     private var hideProgressTask: AsyncTask<Unit, Unit, Unit>? = null
     private val itemJsonAdapter = moshi.adapter(Item::class.java)
@@ -55,10 +55,11 @@ class StoryActivity : BaseActivity() {
         webView = findViewById(R.id.web_view)
         recyclerView = findViewById(R.id.comment_recycler)
         progressView = findViewById(R.id.progress)
-
         item = intent.getStringExtra(EXTRA_ITEM_JSON)?.let {
             itemJsonAdapter.fromJson(it)
         }
+
+        supportActionBar?.setTitle(item?.title + " ")
 
         val retrofit = createRetrofit("https://hacker-news.firebaseio.com/v0/")
 
@@ -163,7 +164,7 @@ class StoryActivity : BaseActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when(item?.itemId) {
+        return when (item?.itemId) {
             R.id.refresh -> {
                 progressView.visibility = Util.setVisibility(true)
                 loadUrlAndComments()
