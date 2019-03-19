@@ -66,14 +66,23 @@
                 android:id="@+id/points_and_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:text="@{item.score + ` points by ` + item.author}"
                 app:layout_constraintTop_toBottomOf="@id/url"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/stamp"
                 tools:text="100 points by author"
         />
-
+        <TextView android:id="@+id/stamp"
+                  android:layout_width="wrap_content"
+                  android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                  android:layout_height="wrap_content"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintEnd_toEndOf="parent"
+                  app:layout_constraintStart_toStartOf="@id/points_and_author"
+                  android:text="Stamp"
+                  app:layout_constraintStart_toEndOf="parent"/>
     </android.support.constraint.ConstraintLayout>
 </layout>
