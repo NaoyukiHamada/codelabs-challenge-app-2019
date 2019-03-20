@@ -4,5 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="helperText">#99000000</color>
-    <color name="disabledText">#61000000</color>
+    <color name="TitleText">#B7683F</color>
+    <color name="disabledText">#D5CCC1</color>
 </resources>

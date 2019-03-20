@@ -36,7 +36,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/menu_button"
                 tools:text="title"
-                android:textColor="@{alreadyRead ? @color/disabledText: @android:color/black}"
+                android:textColor="@{alreadyRead ? @color/disabledText: @color/TitleText}"
         />
 
         <android.support.v7.widget.AppCompatImageButton
@@ -60,6 +60,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="url"
+                android:textColor="@{alreadyRead ? @color/disabledText: @color/TitleText}"
         />
 
         <TextView
@@ -73,6 +74,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/stamp"
+                android:textColor="@color/colorAccent"
                 tools:text="100 points by author"
         />
         <TextView android:id="@+id/stamp"
