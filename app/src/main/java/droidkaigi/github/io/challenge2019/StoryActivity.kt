@@ -26,7 +26,6 @@ import java.util.concurrent.CountDownLatch
 
 
 class StoryActivity : BaseActivity() {
-
     companion object {
         const val EXTRA_ITEM_JSON = "droidkaigi.github.io.challenge2019.EXTRA_ITEM_JSON"
         const val READ_ARTICLE_ID = "read_article_id"
@@ -36,7 +35,7 @@ class StoryActivity : BaseActivity() {
     private lateinit var webView: WebView
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressView: ProgressBar
-
+    private lateinit var commentView: View
     private lateinit var commentAdapter: CommentAdapter
     private lateinit var hackerNewsApi: HackerNewsApi
     private var getCommentsTask: AsyncTask<Long, Unit, List<Item?>>? = null
@@ -44,7 +43,6 @@ class StoryActivity : BaseActivity() {
     private val itemJsonAdapter = moshi.adapter(Item::class.java)
     private val itemsJsonAdapter =
         moshi.adapter<List<Item?>>(Types.newParameterizedType(List::class.java, Item::class.java))
-
     private var item: Item? = null
 
     override fun getContentView(): Int {
@@ -55,13 +53,14 @@ class StoryActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         webView = findViewById(R.id.web_view)
         recyclerView = findViewById(R.id.comment_recycler)
+        commentView = findViewById(R.id.commentView)
+        commentView.setVisibility(View.GONE)
         progressView = findViewById(R.id.progress)
         item = intent.getStringExtra(EXTRA_ITEM_JSON)?.let {
             itemJsonAdapter.fromJson(it)
         }
 
         supportActionBar?.setTitle(item?.title + " ")
-
         val retrofit = createRetrofit("https://hacker-news.firebaseio.com/v0/")
 
         hackerNewsApi = retrofit.create(HackerNewsApi::class.java)
@@ -73,7 +72,6 @@ class StoryActivity : BaseActivity() {
         recyclerView.adapter = commentAdapter
 
         if (item == null) return
-
         val savedComments = savedInstanceState?.let { bundle ->
             bundle.getString(STATE_COMMENTS)?.let { itemsJson ->
                 itemsJsonAdapter.fromJson(itemsJson)
@@ -93,11 +91,9 @@ class StoryActivity : BaseActivity() {
 
     private fun loadUrlAndComments() {
         if (item == null) return
-
         val progressLatch = CountDownLatch(2)
 
         hideProgressTask = @SuppressLint("StaticFieldLeak") object : AsyncTask<Unit, Unit, Unit>() {
-
             override fun doInBackground(vararg unit: Unit?) {
                 try {
                     progressLatch.await()
@@ -114,9 +110,9 @@ class StoryActivity : BaseActivity() {
         hideProgressTask?.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR)
 
         webView.webViewClient = object : WebViewClient() {
-
             override fun onPageFinished(view: WebView?, url: String?) {
                 progressLatch.countDown()
+                commentView.setVisibility(View.VISIBLE)
             }
 
             override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
