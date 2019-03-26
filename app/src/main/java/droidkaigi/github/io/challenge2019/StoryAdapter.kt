@@ -29,12 +29,15 @@ class StoryAdapter(
 
         if (item != null) {
             holder.binding.alreadyRead = false
-            alreadyReadStories.forEach {id ->
+            alreadyReadStories.forEach { id ->
                 if (id.toLong() == item.id) {
                     holder.binding.alreadyRead = true
                 }
             }
             holder.binding.item = item
+            val sdf = java.text.SimpleDateFormat("yyyy-MM-dd")
+            val date = java.util.Date(item.time * 1000)
+            holder.binding.stamp.text = sdf.format(date)
             holder.binding.root.setOnClickListener {
                 onClickItem?.invoke(item)
             }

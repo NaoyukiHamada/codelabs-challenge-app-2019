@@ -30,7 +30,7 @@
     >
 
         <TextView
-                android:id="@+id/author"
+                android:id="@+id/comment_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
@@ -42,14 +42,14 @@
         />
 
         <TextView
-                android:id="@+id/text"
+                android:id="@+id/comment_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:text="@{item.text != null ? Html.fromHtml(item.text) : null}"
                 android:visibility="@{item.text != null ? View.VISIBLE : View.GONE}"
                 android:autoLink="all"
-                app:layout_constraintTop_toBottomOf="@id/author"
+                app:layout_constraintTop_toBottomOf="@id/comment_author"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:text="text"
